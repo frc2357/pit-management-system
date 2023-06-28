@@ -29,39 +29,45 @@ namespace Bluetooth_Downloader
             DiscoverDevices();
         }
         public static readonly Guid FtpProtocol;
+        public static BluetoothClient client;
         static void DiscoverDevices()
         {
-            BluetoothClient client = new BluetoothClient();
+            client = new BluetoothClient();
+            
+            
             string mac = "9C:5F:B0:17:18:2F";
+            string Nmac = "4C:79:75:DA:83:42";
             string hex = mac.Replace(":", "");
             ulong arr = Convert.ToUInt64(hex, 16);
             BluetoothAddress address = new BluetoothAddress(arr);
             Console.WriteLine(address.ToString());
-            Guid guid = Guid.Parse("11010000-0000-1000-8000-00805F9B34FB");
             BluetoothSecurity.PairRequest(address, "");
             Console.WriteLine("pair request sent");
-            BluetoothEndPoint endPoint = new BluetoothEndPoint(address, guid, 30);
-            for (int i = 3; i > 0; i--)
+            BluetoothEndPoint endPoint = new BluetoothEndPoint(address, BluetoothService.SerialPort, 30);
+            for (int i = 1; i > 0; i--)
             {
                 try
                 {
                     Console.Write("connection attempted: ");
-                    client.Connect(endPoint);
-                    Console.Write("Success!--------*");
-                    break;
+                    client.BeginConnect(endPoint,pretendFunction,client);
                 }
                 catch (Exception ex) { Console.Write("fail."); Console.WriteLine(ex); };
             }
-            Console.WriteLine("all connections attempted");
             IReadOnlyCollection<BluetoothDeviceInfo> devices = client.DiscoverDevices();
             Console.WriteLine("Discovered Bluetooth Devices: " + devices.ToString());
             foreach (BluetoothDeviceInfo device in devices)
             {
                 Console.WriteLine("Name: {0}, Address: {1}", device.DeviceName, device.DeviceAddress);
             }
+            Console.WriteLine("all connections attempted");
             client.Close();
             Console.ReadLine();
         }
-        static void pretendFunction() { }
+        static void pretendFunction(IAsyncResult result) {  
+            if(result.IsCompleted)
+            {
+                Console.WriteLine("it finished");
+            }
+        }
     }
 }
