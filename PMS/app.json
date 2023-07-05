@@ -28,12 +28,13 @@
     },
     "extra": {
       "eas": {
-        "projectId": "fcb7793b-c50b-4a8f-831a-ccd8916dd4b8"
+        "projectId": "28b34a58-87a4-4f62-b995-a2721f5411e3"
       },
       "storybookEnabled": "process.env.STORYBOOK_ENABLED"
     },
     "expo": {
       "plugins": "['@config-plugins/react-native-ble-plx']"
-    }
+    },
+    "owner": "systemmeltdown2357"
   }
 }
