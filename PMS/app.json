@@ -32,9 +32,6 @@
       },
       "storybookEnabled": "process.env.STORYBOOK_ENABLED"
     },
-    "expo": {
-      "plugins": "['@config-plugins/react-native-ble-plx']"
-    },
     "owner": "systemmeltdown2357"
   }
 }
