@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "FRCScouter2357",
+    "slug": "FRCScouter2357",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": "['**/*']",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.frc2357.FRCScouter2357"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "28b34a58-87a4-4f62-b995-a2721f5411e3"
+      },
+      "storybookEnabled": "process.env.STORYBOOK_ENABLED"
+    },
+    "owner": "systemmeltdown2357"
+  }
+}
