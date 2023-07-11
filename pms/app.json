@@ -28,8 +28,7 @@
     "extra": {
       "eas": {
         "projectId": "28b34a58-87a4-4f62-b995-a2721f5411e3"
-      },
-      "storybookEnabled": "process.env.STORYBOOK_ENABLED"
+      }
     },
     "owner": "systemmeltdown2357"
   }
