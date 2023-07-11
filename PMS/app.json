@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "PMS",
-    "slug": "PMS",
+    "name": "pms",
+    "slug": "pms",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,7 +20,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.frc2357.PMS"
+      "package": "com.frc2357.pms"
     },
     "web": {
       "favicon": "./assets/favicon.png"

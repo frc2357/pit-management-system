@@ -1,4 +1,4 @@
-package com.frc2357.PMS;
+package com.frc2357.pms;
 
 import android.os.Build;
 import android.os.Bundle;

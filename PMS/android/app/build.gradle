@@ -113,9 +113,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace 'com.frc2357.PMS'
+    namespace 'com.frc2357.pms'
     defaultConfig {
-        applicationId 'com.frc2357.PMS'
+        applicationId 'com.frc2357.pms'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
