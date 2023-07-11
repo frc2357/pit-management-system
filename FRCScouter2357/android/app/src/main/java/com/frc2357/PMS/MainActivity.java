@@ -1,4 +1,4 @@
-package com.frc2357.FRCScouter2357;
+package com.frc2357.PMS;
 
 import android.os.Build;
 import android.os.Bundle;
