@@ -3,7 +3,7 @@
     "name": "pms",
     "slug": "PMS",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -30,6 +30,14 @@
         "projectId": "28b34a58-87a4-4f62-b995-a2721f5411e3"
       }
     },
+    "plugins": [
+      [
+        "expo-screen-orientation",
+        {
+          "initialOrientation": "LANDSCAPE"
+        }
+      ]
+    ],
     "owner": "systemmeltdown2357"
   }
 }
