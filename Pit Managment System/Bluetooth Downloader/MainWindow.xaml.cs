@@ -30,28 +30,31 @@ namespace Bluetooth_Downloader
         }
         public static readonly Guid FtpProtocol;
         public static BluetoothClient client;
+        public static BluetoothListener listener;
         static void DiscoverDevices()
         {
             client = new BluetoothClient();
-            
+            listener = new BluetoothListener(BluetoothService.SerialPort);
             
             string mac = "9C:5F:B0:17:18:2F";
             string Nmac = "4C:79:75:DA:83:42";
             string hex = mac.Replace(":", "");
             ulong arr = Convert.ToUInt64(hex, 16);
+            listener.Start();
+            listener.AcceptBluetoothClient();
             BluetoothAddress address = new BluetoothAddress(arr);
             Console.WriteLine(address.ToString());
             BluetoothSecurity.PairRequest(address, "");
+            Console.WriteLine("serial port service: "+BluetoothService.SerialPort.ToString());
             Console.WriteLine("pair request sent");
             BluetoothEndPoint endPoint = new BluetoothEndPoint(address, BluetoothService.SerialPort, 30);
-            for (int i = 1; i > 0; i--)
+            for (int i = 50; i > 0; i--)
             {
-                try
+                if (listener.Pending())
                 {
-                    Console.Write("connection attempted: ");
-                    client.BeginConnect(endPoint,pretendFunction,client);
+                    Console.WriteLine("looking for connection...");
+                    listener.AcceptBluetoothClient();
                 }
-                catch (Exception ex) { Console.Write("fail."); Console.WriteLine(ex); };
             }
             IReadOnlyCollection<BluetoothDeviceInfo> devices = client.DiscoverDevices();
             Console.WriteLine("Discovered Bluetooth Devices: " + devices.ToString());
@@ -61,12 +64,12 @@ namespace Bluetooth_Downloader
             }
             Console.WriteLine("all connections attempted");
             client.Close();
-            Console.ReadLine();
+            Console.WriteLine("listener status: "+listener.Active.ToString());
         }
         static void pretendFunction(IAsyncResult result) {  
             if(result.IsCompleted)
             {
-                Console.WriteLine("it finished");
+                Console.WriteLine("it finished, is connected: "+client.Connected.ToString());
             }
         }
     }
