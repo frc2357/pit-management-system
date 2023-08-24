@@ -4,11 +4,11 @@
 winexe
 C#
 .cs
-C:\Users\mamil\Documents\Git\Pit Managment System\Pit Managment System\Bluetooth Downloader\obj\Debug\
+C:\Users\mamil\Documents\Git\Pit Managment System\Pit Managment System\Bluetooth Downloader\obj\Release\
 Bluetooth_Downloader
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\mamil\Documents\Git\Pit Managment System\Pit Managment System\Bluetooth Downloader\App.xaml
 1219584333
 
@@ -16,5 +16,5 @@ C:\Users\mamil\Documents\Git\Pit Managment System\Pit Managment System\Bluetooth
 14-1943894427
 MainWindow.xaml;
 
-False
+True
 
