@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Windows.Controls.Primitives;
+using System.Windows.Markup;
 
 namespace Bluetooth_Downloader
 {
@@ -32,14 +33,15 @@ namespace Bluetooth_Downloader
             InitializeComponent();
             DiscoverDevices();
         }
-        public  readonly Guid FtpProtocol;
-        public  BluetoothClient client;
-        public  BluetoothListener listener;
-         void DiscoverDevices()
+        public readonly Guid FtpProtocol;
+        public BluetoothClient client;
+        public BluetoothListener listener;
+        public StreamReader sr;
+        void DiscoverDevices()
         {
             client = new BluetoothClient();
             listener = new BluetoothListener(BluetoothService.SerialPort);
-            
+
             string phonemac = "9C:5F:B0:17:18:2F";
             Debug.WriteLine("made it 1");
             string mac = "b8:5f:98:f0:56:57";
@@ -50,30 +52,46 @@ namespace Bluetooth_Downloader
             listener.Start();
             Debug.WriteLine("made it 3");
             BluetoothAddress address = new BluetoothAddress(arr);
-            Debug.WriteLine(address.ToString()+" ---made it 4");
-            Debug.WriteLine("serial port service: "+BluetoothService.SerialPort.ToString());
+            Debug.WriteLine(address.ToString() + " ---made it 4");
+            Debug.WriteLine("serial port service: " + BluetoothService.SerialPort.ToString());
             BluetoothEndPoint endPoint = new BluetoothEndPoint(address, BluetoothService.SerialPort, 21);
-                    Debug.WriteLine("looking for connection...");
-                    workingClient = listener.AcceptBluetoothClient();
-                    Debug.WriteLine("listener has connected to the device");
-           
+            Debug.WriteLine("looking for connection...");
+            workingClient = listener.AcceptBluetoothClient();
+            Debug.WriteLine("listener has connected to the device");
+            Stream stream = workingClient.GetStream();
+            Debug.WriteLine("Device name: " + workingClient.RemoteMachineName.ToString());
+            Debug.WriteLine("Stream: " + stream.CanWrite + "\n" + stream.WriteTimeout);
+            stream.WriteTimeout = 500;
+            sr = new StreamReader(stream, System.Text.Encoding.ASCII);
+            sr.InitializeLifetimeService();
+
         }
-         void pretendFunction(IAsyncResult result) {  
-            if(result.IsCompleted)
-            {
-                Debug.WriteLine("it finished, is connected: "+client.Connected.ToString());
-            }
+        void readFromBuffer(object sender, RoutedEventArgs aakjshfkjh)
+        {
+            char[] buffer = new char[2048];
+            Debug.WriteLine("Reading...");
+            Debug.Write("Stream Buffer that was read: ");
+            string line;line = sr.ReadLine(); Debug.WriteLine(line );
+            //do {  }  while (line != -1);
         }
         void writeToStream(object sender, RoutedEventArgs asdjkaFJKEF)
         {
             try
             {
-                var stream = workingClient.GetStream();
+                Stream stream = workingClient.GetStream();
+                Debug.WriteLine("Device name: "+workingClient.RemoteMachineName.ToString());
+                Debug.WriteLine("Stream: "+stream.CanWrite+"\n"+stream.WriteTimeout);
+                stream.WriteTimeout = 500;
                 StreamWriter sw = new StreamWriter(stream, System.Text.Encoding.ASCII);
+                sw.InitializeLifetimeService();
+                Debug.WriteLine("Stream: " + stream.CanWrite + "\n" + stream.WriteTimeout);
                 sw.WriteLine("Hello world!");
                 Debug.WriteLine("button pushed, should have wrote");
+                Debug.WriteLine("Ending connection-------");
+                workingClient.Close();
+                Debug.WriteLine("Connection Terminated.");
             }
-            catch(Exception e) {Debug.WriteLine(e.ToString());}
+            catch (Exception e) { Debug.WriteLine(e.ToString()); }
         }
     }
 }

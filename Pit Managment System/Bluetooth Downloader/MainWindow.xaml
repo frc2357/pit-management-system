@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Bluetooth_Downloader"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-		<Button x:Name="write_to_stream" Content="write" Click="writeToStream" ClickMode="Press"/>
+	<Grid>
+
+		<Button x:Name = "read_from_buffer" Content = "read" Click = "readFromBuffer" ClickMode = "Press" />
     </Grid>
 </Window>
