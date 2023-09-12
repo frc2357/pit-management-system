@@ -8,6 +8,6 @@
         Title="MainWindow" Height="450" Width="800">
 	<Grid>
 
-		<Button x:Name = "read_from_buffer" Content = "read" Click = "readFromBuffer" ClickMode = "Press" />
+		<Button x:Name = "read_from_buffer" Content = "read" Click = "writeToStream" ClickMode = "Press" />
     </Grid>
 </Window>

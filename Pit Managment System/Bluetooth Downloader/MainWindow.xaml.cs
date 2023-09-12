@@ -19,6 +19,8 @@ using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Windows.Controls.Primitives;
 using System.Windows.Markup;
+using System.Security.Cryptography.X509Certificates;
+using System.CodeDom;
 
 namespace Bluetooth_Downloader
 {
@@ -37,15 +39,14 @@ namespace Bluetooth_Downloader
         public BluetoothClient client;
         public BluetoothListener listener;
         public StreamReader sr;
+        public StreamWriter sw;
         void DiscoverDevices()
         {
             client = new BluetoothClient();
             listener = new BluetoothListener(BluetoothService.SerialPort);
 
-            string phonemac = "9C:5F:B0:17:18:2F";
             Debug.WriteLine("made it 1");
             string mac = "b8:5f:98:f0:56:57";
-            string Nmac = "4C:79:75:DA:83:42";
             string hex = mac.Replace(":", "");
             ulong arr = Convert.ToUInt64(hex, 16);
             Debug.WriteLine("made it 2");
@@ -62,8 +63,15 @@ namespace Bluetooth_Downloader
             Debug.WriteLine("Device name: " + workingClient.RemoteMachineName.ToString());
             Debug.WriteLine("Stream: " + stream.CanWrite + "\n" + stream.WriteTimeout);
             stream.WriteTimeout = 500;
-            sr = new StreamReader(stream, System.Text.Encoding.ASCII);
-            sr.InitializeLifetimeService();
+            /*sr = new StreamReader(stream, System.Text.Encoding.ASCII);
+            sr.InitializeLifetimeService();*/
+            sw = new StreamWriter(stream, System.Text.Encoding.ASCII);
+            Debug.WriteLine(sw.ToString());
+            String thingToWrite = "hello";
+            workingClient.GetStream().Write(System.Text.Encoding.ASCII.GetBytes("hello\n"), 0, 6);
+            workingClient.GetStream().Flush();
+            sw.Flush();
+            Debug.WriteLine("stream writer was made");
 
         }
         void readFromBuffer(object sender, RoutedEventArgs aakjshfkjh)
@@ -78,18 +86,10 @@ namespace Bluetooth_Downloader
         {
             try
             {
-                Stream stream = workingClient.GetStream();
                 Debug.WriteLine("Device name: "+workingClient.RemoteMachineName.ToString());
-                Debug.WriteLine("Stream: "+stream.CanWrite+"\n"+stream.WriteTimeout);
-                stream.WriteTimeout = 500;
-                StreamWriter sw = new StreamWriter(stream, System.Text.Encoding.ASCII);
-                sw.InitializeLifetimeService();
-                Debug.WriteLine("Stream: " + stream.CanWrite + "\n" + stream.WriteTimeout);
-                sw.WriteLine("Hello world!");
+                sw.Write("hello\n");
+                workingClient.GetStream().Write(System.Text.Encoding.ASCII.GetBytes("hello\n"), 0, 6);
                 Debug.WriteLine("button pushed, should have wrote");
-                Debug.WriteLine("Ending connection-------");
-                workingClient.Close();
-                Debug.WriteLine("Connection Terminated.");
             }
             catch (Exception e) { Debug.WriteLine(e.ToString()); }
         }
